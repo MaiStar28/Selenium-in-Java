@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 import java.util.List;
 public class Topic_07_DemoSeleniumLocator_Part2 {
     WebDriver driver;
-    //abc
     @BeforeClass
     public void initialBrowser(){
         driver = new FirefoxDriver();
