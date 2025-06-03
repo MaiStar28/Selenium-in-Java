@@ -53,6 +53,7 @@ public class Topic_02_Selenium_Locator {
     }
     @Test
     public void TC_02_Class() {
+        System.out.println("sd");
         // Giá trị trong class mà không có khoảng trắng (lấy toàn bộ)
         // Giá trị trong class mà có khoảng trắng (lấy phần nào là duy nhất)
         driver.findElement(By.className("btn-login"));
