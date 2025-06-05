@@ -27,4 +27,6 @@ public class Topic_00_Template {
     }
 
     // Tên biến/hàm: chữ cái đầu viết thường
+    //Selenium: KHi thao tác với 1 element (findElement) thì trường hợp truyeenf vào 1 locator không phải là duy nhất (có nhiều hơn 1)
+    // -> thì khi thao tác lên element sẽ lấy cái locator đầu tiên
 }

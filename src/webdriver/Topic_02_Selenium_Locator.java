@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.locators.RelativeLocator;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -104,6 +105,33 @@ public class Topic_02_Selenium_Locator {
 
         driver.findElements(By.xpath("//a[text()='tên text của link']"));
         driver.findElements(By.xpath("//a[contains(text(),'tên text của link')]"));
+    }
+
+    @Test
+    //dùng khi không thể định danh được element của chính nó (-> phải dựa vào vị trí element gần nó)
+    //sử dụng khi test GUI (test giao diện - position khớp với Figma hay kh)
+    //có thể dùng 1 trong 4 vị trí (không cần bắt buộc phải dùng cả 4)
+    public void TC_09_Relative_Locator(){
+        //Element By A
+        //Khai báo bằng By
+        By passwordTextboxBy1 = By.cssSelector("input#Password");
+        //Khai báo bằng Element
+        WebElement passwordTextboxBy2 = driver.findElement(By.cssSelector("input#Password"));
+        //Element By B
+        By rememberMeCheckboxBy = By.id("RememberMe");
+        //Element By C
+        By forgotPasswordLinkBy = By.id("forgotPasswword");
+        //Element By D
+        By loginButtonBy = By.id("loginButton");
+        //Element By E
+        WebElement rememberMe = driver.findElement(RelativeLocator.with(By.tagName("label"))
+                .above(loginButtonBy)             //label này đang nằm trên Login
+                .below(passwordTextboxBy1)        //label này đang nằm dưới Quên MK
+                .toLeftOf(rememberMeCheckboxBy)   //label này ở bên trái Checkbox
+                .toRightOf(forgotPasswordLinkBy)  //label này ở bên phải Quên MK
+                .near(rememberMeCheckboxBy)       //label này ở gần Checkbox
+                .near(forgotPasswordLinkBy)       //label này cũng ở gần Quên MK
+        );
     }
     @AfterClass
     public void cleanBrowser() {
