@@ -96,6 +96,18 @@ public class Topic_02_Selenium_Locator {
     }
     @Test
     public void TC_08_xPath() {
+        //Xpath tuyệt đối - đi từ node đầu tiên tới node cuối cùng - Không bỏ qua node nào trung gian
+        //Ưu điểm: chạy rất nhanh
+        //Nhược điểm: quá dài - Khi đổi UI là fail
+        //Đi từng node một - dùng 1 /
+        //Xpath tương đối - đi tới node cuối cùng
+        //Ưu điểm: ngắn ngọn - ít fail
+        //Đi qua node - dùng 2 //
+
+        //Relative Xpath Format: //tagname[@attribute='value']
+
+        //Tiêu chí chọn: duy nhất - id/class/name - giá trị của attribute phải có nghĩa (liên quan tới element đó)
+
         driver.findElements(By.xpath("//input[@id='tên id']"));
 
         driver.findElements(By.xpath("//button[@class='tên class']"));
