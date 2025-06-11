@@ -20,11 +20,33 @@ public class Topic_03_XPathCss {
         //Tiêu chí chọn: duy nhất - id/class/name - giá trị của attribute phải có nghĩa (liên quan tới element đó)
         //Relative Xpath Format: //tagname[@attribute='value']
 
-        //Đối với các element che mất/bị ẩn/không nằm trong viewport (nằm phía dưới hoặc phía trên màn hình đang chạy) / không tìm được thuộc tính trong thẻ là duy nhất
-        // Tìm thuộc tính trong element cha của nó
-        //<a class="a-img" href="/gioi-thieu" title="Về Nhã Nam"> Về Nhã Nam</a>
-        //<a href="/gioi-thieu" title="Về Nhã Nam">Về Nhã Nam</a>
-        driver.findElement(By.xpath("//li[@class='li_menu']//a[@title='Về Nhã Nam']")).click();
+        //1. Đối với các element che mất/bị ẩn/không nằm trong viewport (nằm phía dưới hoặc phía trên màn hình đang chạy) / không tìm được thuộc tính trong thẻ là duy nhất => Tìm thuộc tính trong element cha của nó
+        //driver.findElement(By.xpath("//li[@class='li_menu']//a[@title='Về Nhã Nam']")).click();
+
+        //2. Hàm text()
+        //driver.findElement(By.xpath("//p[text()='Đổi trả dễ dàng']"));
+
+        //3. Hàm contains()
+        driver.findElement(By.xpath("//p[contains(text(), 'Tích điểm')]"));
+        driver.findElement(By.xpath("//a[contains(@title,'độc giả')]"));
+        driver.findElement(By.xpath("//a[contains(@title,'độc giả')]"));
+        driver.findElement(By.xpath("//ul[@class='list-menu']//a[contains(@href,'tuyen')]"));
+        driver.findElement(By.xpath("//a[contains(.,'Nhã')]"));
+        driver.findElement(By.xpath("//a[contains(string(),'Nhã')]"));
+
+        //4. Hàm concat()
+        // Ví dụ: Hello "Mai", What's happened?
+        //xpath: //p[text()=concat('Hello "Mai" What',"'s happened?")]
+
+        //5. Hàm starts-with: dùng khi thuộc tính của 1 element với mỗi lần lấy xpath nó thay đổi liên tục nhưng text ở đâu luôn cố định
+        // Ví dụ: màn Login của web Lazada với trường Nhập Your phone or Email
+        //xpath: //input[starts-with(@data-spm-anchor-id,'a2o4n.tm80151110')]
+
+        //6. Hàm AND OR NOT
+        driver.findElement(By.xpath("//input[@id='lastName' and @placeholder='Họ']"));
+        driver.findElement(By.xpath("//input[@id='lastName' or @name='firstName']"));
+
+
     }
 
 
