@@ -14,17 +14,18 @@ public class Topic_03_XPathCss {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
     @Test
-    public void xPathCss(){
+    public void xPath(){
         driver = new FirefoxDriver();
         driver.get("https://nhanam.vn/account/register");
+        //driver.get("https://nhanam.vn/triet-hoc");
         //Tiêu chí chọn: duy nhất - id/class/name - giá trị của attribute phải có nghĩa (liên quan tới element đó)
         //Relative Xpath Format: //tagname[@attribute='value']
 
         //1. Đối với các element che mất/bị ẩn/không nằm trong viewport (nằm phía dưới hoặc phía trên màn hình đang chạy) / không tìm được thuộc tính trong thẻ là duy nhất => Tìm thuộc tính trong element cha của nó
-        //driver.findElement(By.xpath("//li[@class='li_menu']//a[@title='Về Nhã Nam']")).click();
+        driver.findElement(By.xpath("//li[@class='li_menu']//a[@title='Về Nhã Nam']")).click();
 
         //2. Hàm text()
-        //driver.findElement(By.xpath("//p[text()='Đổi trả dễ dàng']"));
+        driver.findElement(By.xpath("//p[text()='Đổi trả dễ dàng']"));
 
         //3. Hàm contains()
         driver.findElement(By.xpath("//p[contains(text(), 'Tích điểm')]"));
@@ -46,7 +47,9 @@ public class Topic_03_XPathCss {
         driver.findElement(By.xpath("//input[@id='lastName' and @placeholder='Họ']"));
         driver.findElement(By.xpath("//input[@id='lastName' or @name='firstName']"));
 
-
+        //7. Xpath Axes
+        //Xpath: //button[@title='Mua ngay']/parent::*/preceding-sibling::a[@title='CON ĐƯỜNG TỈNH THỨC']
+        driver.findElement(By.xpath("//button[@title='Mua ngay']/parent::*/preceding-sibling::a[@title='CON ĐƯỜNG TỈNH THỨC']")).click();
     }
 
 
