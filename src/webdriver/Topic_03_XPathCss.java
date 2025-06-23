@@ -2,6 +2,7 @@ package webdriver;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
 
@@ -50,7 +51,15 @@ public class Topic_03_XPathCss {
         //7. Xpath Axes
         //Xpath: //button[@title='Mua ngay']/parent::*/preceding-sibling::a[@title='CON ĐƯỜNG TỈNH THỨC']
         driver.findElement(By.xpath("//button[@title='Mua ngay']/parent::*/preceding-sibling::a[@title='CON ĐƯỜNG TỈNH THỨC']")).click();
+        
     }
 
+    @Test
+    public void CSS(){
+        driver = new FirefoxDriver();
+        driver.get("https://nhanam.vn/account/register");
+        WebElement ts = driver.findElement(By.id("firstName"));
+        System.out.println("Name: " + ts.getAttribute("name"));
+    }
 
 }
