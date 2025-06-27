@@ -242,7 +242,7 @@ public class Topic_03_TCsWebBrowser_Part3 {
         }else {
             System.out.println("Không hiển thị");
         }
-
+        //test
         WebElement passInput = driver.findElement(By.id("new_password"));
         passInput.sendKeys("");
 
