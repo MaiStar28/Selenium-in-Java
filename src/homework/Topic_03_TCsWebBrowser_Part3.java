@@ -1,9 +1,9 @@
 package homework;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -18,6 +18,23 @@ public class Topic_03_TCsWebBrowser_Part3 {
     By emailT = By.xpath("//input[@id='mail']");
     By ageR = By.xpath("//input[@id='under_18']");
     By edu = By.id("edu");
+    By emailLogin = By.xpath("//input[@id='email']");
+    By passLogin = By.xpath("//input[@id='pass']");
+    By loginB = By.xpath("//button[@id='send2']");
+
+    By oneLowercaseF = By.xpath("//li[@class='lowercase-char not-completed']");
+    By oneUppercaseF = By.xpath("//li[@class='uppercase-char not-completed']");
+    By oneNumberF = By.xpath("//li[@class='number-char not-completed']");
+    By oneSpecialF = By.xpath("//li[@class='special-char not-completed']");
+    By eightCharactersF = By.xpath("//li[@class='8-char not-completed']");
+    By mustNotContainUsernameF = By.xpath("//li[@class='username-check not-completed']");
+
+    By oneLowercaseT = By.xpath("//li[@class='lowercase-char completed']");
+    By oneUppercaseT = By.xpath("//li[@class='uppercase-char completed']");
+    By oneNumberT = By.xpath("//li[@class='number-char completed']");
+    By oneSpecialT = By.xpath("//li[@class='special-char completed']");
+    By eightCharactersT = By.xpath("//li[@class='8-char completed']");
+    By mustNotContainUsernameT = By.xpath("//li[@class='username-check completed']");
 
     @BeforeClass
     public void initialBrowser(){
@@ -230,26 +247,120 @@ public class Topic_03_TCsWebBrowser_Part3 {
             System.out.println("Languages is de-selected");
         }
     }
+    //Register function at MailChimp
     @Test
-    public void TC08_Check_All_Selected_Enable_Displayed() {
+    public void TC08_Check_All_Selected_Enable_Displayed() throws InterruptedException {
         driver.get("https://login.mailchimp.com/signup/");
         WebElement emailInput = driver.findElement(By.id("email"));
-        //emailInput.sendKeys("");
+        WebElement newPass = driver.findElement(By.id("new_password"));
 
-        WebElement usernameInput = driver.findElement(By.id("new_username"));
-        if (usernameInput.isDisplayed()){
-            System.out.println("Có hiển thị");
-        }else {
-            System.out.println("Không hiển thị");
-        }
-        //test
-        WebElement passInput = driver.findElement(By.id("new_password"));
-        passInput.sendKeys("");
+        emailInput.sendKeys("mai@gmail.com");
+        emailInput.sendKeys(Keys.TAB); //click nut TAB de tu dong nhap username
 
+        // Nhập số
+        newPass.sendKeys("123");
+        newPass.sendKeys(Keys.TAB);
+
+        Assert.assertTrue(driver.findElement(oneLowercaseF).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneUppercaseF).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneNumberT).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneSpecialF).isDisplayed());
+        Assert.assertTrue(driver.findElement(eightCharactersF).isDisplayed());
+        Assert.assertTrue(driver.findElement(mustNotContainUsernameT).isDisplayed());
+        Thread.sleep(3000);
+
+        // Nhập chữ thường
+        newPass.clear();
+        newPass.sendKeys("abcd");
+        newPass.sendKeys(Keys.TAB);
+
+        Assert.assertTrue(driver.findElement(oneLowercaseT).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneUppercaseF).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneNumberF).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneSpecialF).isDisplayed());
+        Assert.assertTrue(driver.findElement(eightCharactersF).isDisplayed());
+        Assert.assertTrue(driver.findElement(mustNotContainUsernameT).isDisplayed());
+        Thread.sleep(3000);
+
+        // Nhập chữ hoa
+        newPass.clear();
+        newPass.sendKeys("ABCD");
+        newPass.sendKeys(Keys.TAB);
+
+        Assert.assertTrue(driver.findElement(oneLowercaseF).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneUppercaseT).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneNumberF).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneSpecialF).isDisplayed());
+        Assert.assertTrue(driver.findElement(eightCharactersF).isDisplayed());
+        Assert.assertTrue(driver.findElement(mustNotContainUsernameT).isDisplayed());
+        Thread.sleep(3000);
+
+        // Nhập kí tự đặc biệt
+        newPass.clear();
+        newPass.sendKeys("@#$");
+        newPass.sendKeys(Keys.TAB);
+
+        Assert.assertTrue(driver.findElement(oneLowercaseF).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneUppercaseF).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneNumberF).isDisplayed());
+        Assert.assertTrue(driver.findElement(oneSpecialT).isDisplayed());
+        Assert.assertTrue(driver.findElement(eightCharactersF).isDisplayed());
+        Assert.assertTrue(driver.findElement(mustNotContainUsernameT).isDisplayed());
+        Thread.sleep(3000);
+
+        // Nhập full
+        newPass.clear();
+        newPass.sendKeys("Abc123@123");
+        newPass.sendKeys(Keys.TAB);
+
+        Assert.assertFalse(driver.findElement(oneLowercaseT).isDisplayed());
+        Assert.assertFalse(driver.findElement(oneUppercaseT).isDisplayed());
+        Assert.assertFalse(driver.findElement(oneNumberT).isDisplayed());
+        Assert.assertFalse(driver.findElement(oneSpecialT).isDisplayed());
+        Assert.assertFalse(driver.findElement(eightCharactersT).isDisplayed());
+        Assert.assertFalse(driver.findElement(mustNotContainUsernameT).isDisplayed());
+        Thread.sleep(3000);
     }
     @Test
-    public void TC09_Check_Enabled() {
-
+    public void TC09_Login_Empty() {
+        driver.get("https://live.techpanda.org/");
+        driver.findElement(myAcc).click();
+        driver.findElement(loginB).click();
+        Assert.assertEquals(driver.findElement(By.id("advice-required-entry-email")).getText(), "This is a required field.");
+        Assert.assertEquals(driver.findElement(By.id("advice-required-entry-pass")).getText(), "This is a required field.");
+    }
+    @Test
+    public void TC10_Login_Invalid_Email() {
+        driver.get("https://live.techpanda.org/");
+        driver.findElement(myAcc).click();
+        driver.findElement(emailLogin).sendKeys("123@123.123");
+        driver.findElement(passLogin).sendKeys("123456");
+        driver.findElement(loginB).click();
+        Assert.assertEquals(driver.findElement(By.id("advice-validate-email-email")).getText(), "Please enter a valid email address. For example johndoe@domain.com.");
+    }
+    @Test
+    public void TC11_Login_Invalid_Pass() {
+        driver.get("https://live.techpanda.org/");
+        driver.findElement(myAcc).click();
+        driver.findElement(emailLogin).sendKeys("maihts@elcom.com.vn");
+        driver.findElement(passLogin).sendKeys("123");
+        driver.findElement(loginB).click();
+        Assert.assertEquals(driver.findElement(By.id("advice-validate-password-pass")).getText(), "Please enter 6 or more characters without leading or trailing spaces.");
+    }
+    @Test
+    public void TC12_Login_Incorrect_Email_Pass() {
+        driver.get("https://live.techpanda.org/");
+        driver.findElement(myAcc).click();
+        driver.findElement(emailLogin).sendKeys("maihts@elcom.com.vn");
+        driver.findElement(passLogin).sendKeys("123456");
+        driver.findElement(loginB).click();
+        // Chờ alert xuất hiện
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.alertIsPresent());
+        // Chuyển sang alert - OK
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+        Assert.assertEquals(driver.findElement(By.xpath("//li/span")).getText(), "Invalid login or password.");
     }
     @AfterClass
     public void cleanBrowser(){
