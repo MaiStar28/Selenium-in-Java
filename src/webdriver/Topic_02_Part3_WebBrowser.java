@@ -9,18 +9,16 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
 
-public class Topic_03_Part3_WebBrowser {
+public class Topic_02_Part3_WebBrowser {
     //Khai báo
     WebDriver driver;
     @BeforeClass

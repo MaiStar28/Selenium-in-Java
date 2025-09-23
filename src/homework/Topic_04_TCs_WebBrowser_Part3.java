@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class Topic_03_TCsWebBrowser_Part3 {
+public class Topic_04_TCs_WebBrowser_Part3 {
     WebDriver driver;
     By myAcc = By.xpath("//div[@class='footer']//a[@title='My Account']");
     By createAcc = By.xpath("//a[@class='button']");

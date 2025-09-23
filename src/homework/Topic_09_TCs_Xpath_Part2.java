@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class Topic_09_TestcaseXpath_Part2 {
+public class Topic_09_TCs_Xpath_Part2 {
     WebDriver driver;
     @BeforeClass
     public void initialBrowser(){
