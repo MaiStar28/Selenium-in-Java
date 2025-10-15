@@ -1,5 +1,6 @@
 package webdriver;
 
+import org.bouncycastle.oer.Switch;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -10,6 +11,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Topic_06_Default_Dropdown {
     //Khai báo
@@ -62,8 +65,54 @@ public class Topic_06_Default_Dropdown {
         explicitWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("")));
         explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("")));
         // if - switch case: If kh check trùng điêều kiện - case thì có thể
-        // while - do while:  while kiểm tra điều kiện trc còn đo while ktra điều kiện sau
+        int i = 100;
+        if(i>10){
+            System.out.println("T");
+        }else{
+            System.out.println("F");
+        }
+        int day = 3;
+        switch(day){
+            case 1:
+                System.out.println("Thứ 2");
+                break;
+            case 2:
+                System.out.println("Thứ 3");
+                break;
+            case 3:
+                System.out.println("Thứ 4");
+                break;
+            default:
+                System.out.println("Thứ 5");
+                break;
+        }
+        // for - while - do while:  while kiểm tra điều kiện trc còn đo while ktra điều kiện sau
+        for (int j = 0; j < day; j++) {
+            System.out.println(j);
+        }
+        int count = 1;
 
+        while (count <= 3) {
+            System.out.println("Lần lặp thứ " + count);
+            count++;
+        }
+        //kq:
+        //Lần lặp thứ 1
+        //Lần lặp thứ 2
+        //Lần lặp thứ 3
+        do {
+            System.out.println("lần lặp thứ " + count);
+            count++;
+        } while (count <= 3);
+        //kq:
+        //Lần lặp thứ 1
+
+        //list
+        List<String> address = new ArrayList<>();
+        address.add("HN");
+        address.add("TB");
+        address.add("HY");
+        System.out.println(address.get(0));
     }
     @AfterClass
     public void cleanBrowser(){
