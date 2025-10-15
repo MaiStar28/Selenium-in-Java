@@ -5,12 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Random;
 
 public class Topic_05_TCs_TextboxTextArea_Part3 {
@@ -137,6 +139,40 @@ public class Topic_05_TCs_TextboxTextArea_Part3 {
     public void TC_03_NopCommerce() throws InterruptedException {
         driver.get("https://demo.nopcommerce.com/register");
         driver.findElement(By.cssSelector("a.ico-register")).click();
+        //kh có dropdown ngày tháng năm
+    }
+    @Test
+    public void TC_04_Rode() throws InterruptedException {
+        driver.get("https://rode.com/en-au/support/where-to-buy");
+        Select select = new Select(driver.findElement(By.cssSelector("select#country")));
+        Assert.assertFalse(select.isMultiple());
+        Thread.sleep(3000);
+        select.selectByVisibleText("Vietnam");
+        driver.findElement(By.cssSelector("input#map_search_query")).sendKeys("HO CHI MINH");
+        driver.findElement(By.xpath("//button[@class='btn btn-default']")).click();
+        Thread.sleep(3000);
+        driver.findElement(By.xpath("//button[@class='btn btn-default']")).click();
+        List<WebElement> dealers = driver.findElements(By.xpath("//h3[text()='Dealers']/following-sibling::div//h4"));
+        Assert.assertEquals(dealers.size(), 16);
+        //Cách 1
+        for(WebElement element : dealers){
+            System.out.println(element.getText());
+        }
+        //Cách 2
+        for (int i = 0; i < dealers.size(); i++) {
+            System.out.println(dealers.get(i).getText());
+        }
+
+    }
+    @Test
+    public void TC_05_Jqueryui() throws InterruptedException {
+        driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
+        Select select = new Select(driver.findElement(By.id("speed")));
+        Thread.sleep(3000);
+        select.selectByVisibleText("Slower");
+        Assert.assertEquals(select.getFirstSelectedOption().getText(),"Slower");
+        select.selectByVisibleText("Slower");
+        Assert.assertEquals(select.getFirstSelectedOption().getText(),"Medium");
 
     }
     @AfterClass
